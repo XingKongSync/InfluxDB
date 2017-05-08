@@ -244,7 +244,12 @@ public class InfluxResult {
 
         public float GetFloat(InfluxColumn column) {
             currentRow = tokenList.get(i).getoValue();
-            return currentRow.getTokenList().get(column.getColumIndex()).getfValue();
+            JsonToken currentValue = currentRow.getTokenList().get(column.getColumIndex());
+            if (currentValue.getNumberType() == JsonToken.CONST_JSON_NUMBER_TYPE_INT) {
+				return currentValue.getiValue();
+			} else {
+				return currentValue.getfValue();
+			}
         }
 
         public JsonObject GetObject(InfluxColumn column) {
