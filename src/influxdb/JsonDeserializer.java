@@ -50,6 +50,7 @@ public class JsonDeserializer {
     private String lastError;
     private StringBuilder stringBuffer;
     private boolean isProcessingNumber = false;//stringBuffer中是否是数字或者null字符的标志
+    private boolean isScientific = false;//stringBuffer中的数值是否以科学计数法表示
     private boolean isFloat = false;//stringBuffer中的数字是否是float类型的标志
     private boolean isWaitingNull = false;//是否等待接收null的字符
     private boolean isStringReady = false;//是否已经接收了一个完整的字符串
@@ -149,6 +150,14 @@ public class JsonDeserializer {
                 }
                 return 0;
             }
+        }
+
+        //当正在接收数字的时候，遇到e、+、-时，视为数字的一部分
+        if (isProcessingNumber && (c == 'e' || c == '+' || c == '-')) {
+            isScientific = true;
+            isFloat = true;
+            stringBuffer.append(c);
+            return 0;
         }
 
         //处理其他情况
@@ -421,6 +430,7 @@ public class JsonDeserializer {
             //重置数字接收标志
             isProcessingNumber = false;
             isFloat = false;
+            isScientific = false;
             result = 0;
         } else if (isWaitingNull) {
             //如果当前处于接收数字null的状态

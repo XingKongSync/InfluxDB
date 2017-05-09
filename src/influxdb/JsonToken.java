@@ -101,7 +101,7 @@ public class JsonToken implements IJsonElement {
 		sb.append(" , Value: ");
 		switch (getValueType()) {
 		case CONST_JSON_FIELD_TYPE_NUMBER:
-			if (getValueType() == CONST_JSON_NUMBER_TYPE_FLOAT) {
+			if (getNumberType() == CONST_JSON_NUMBER_TYPE_FLOAT) {
 				sb.append(getfValue());
 			} else {
 				sb.append(getiValue());
