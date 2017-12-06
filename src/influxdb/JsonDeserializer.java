@@ -95,7 +95,7 @@ public class JsonDeserializer {
      */
     public int InputData(char[] inputBuffer, int inputLength) {
         for (int i = 0; i < inputLength; i++) {
-            // System.out.print(inputBuffer[i]);
+//             System.out.print(inputBuffer[i]);
             int result = ScanChar(inputBuffer[i]);
             // System.out.println("scan char: " + inputBuffer[i] + " result: " + result);
             if (result != 0) {
@@ -481,7 +481,7 @@ public class JsonDeserializer {
         if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
             //说明字符是字母
             return CONST_CHAR_TYPE_LETTER;
-        } else if ((c >= '0' && c <= '9') || c == '.') {
+        } else if ((c >= '0' && c <= '9') || c == '.' || c == '+' || c == '-') {
             //说明字符是数字或者小数点
             return CONST_CHAR_TYPE_NUM;
         } else {
