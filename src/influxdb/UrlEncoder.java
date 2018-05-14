@@ -16,6 +16,7 @@ public class UrlEncoder {
             replaceMap.put(">", "%3E");
             replaceMap.put("<", "%3C");
             replaceMap.put(" ", "%20");
+            replaceMap.put("+", "%2b");
         }
     }
 
