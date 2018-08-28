@@ -89,13 +89,24 @@ public class InfluxResult {
         columnsObject = GetcolumnsObject();
         valuesObject = GetValueObject();
     }
+    
+    private JsonToken GetJsonTokenFromList(List<JsonToken> tokenList, String tokenName) {
+        if (tokenList == null)
+            return null;
+        for (int i = 0; i < tokenList.size(); i++) {
+            JsonToken token = tokenList.get(i);
+            if (token.getKey().equals(tokenName))
+                return token;
+        }
+        return null;
+    }
 
     private JsonObject GetSeriesValueObject() throws Exception {
         if (resultObject != null) {
             List<JsonToken> tokenList = resultObject.getTokenList();
             if (tokenList != null && !tokenList.isEmpty()) {
-                JsonToken seriesToken = tokenList.get(0);
-                if (seriesToken.getKey().equals("series")) {
+                JsonToken seriesToken = GetJsonTokenFromList(tokenList, "series");
+                if (seriesToken != null) {
                     JsonObject seriesValue = seriesToken.getoValue();
                     if (seriesValue != null) {
                         if (seriesValue.getObjType() == JsonObject.CONST_JSON_OBJECT_TYPE_ARRAY) {
