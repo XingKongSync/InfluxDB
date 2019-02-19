@@ -249,7 +249,7 @@ public class InfluxDB {
 							// System.out.println("Content-Length is " + contentLength);
 						}
 					} else if (line.contains(CONST_TRANSFER_ENCODING)
-							& line.length() > CONST_TRANSFER_ENCODING.length()) {
+							&& line.length() > CONST_TRANSFER_ENCODING.length()) {
 						//如果找到Transfer-Encoding，则说明是chunked模式
 						transferEncodingType = CONST_HTTP_TRANSFER_ENCODING_CHUNKED;
 					}
